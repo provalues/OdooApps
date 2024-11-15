@@ -39,7 +39,7 @@ class MaterialRequisition(models.Model):
         self.state = 'submit'
 
     def action_procurement_approval(self):
-        if not self.env.user.has_group('material_requisition.group_procurement_manager'):
+        if not self.env.user.has_group('material_requisition_pro.group_procurement_manager'):
             raise UserError(_('Only the procurement manager can approve this requisition.'))
         self.state = 'procurement_approval'
     def action_reject(self):

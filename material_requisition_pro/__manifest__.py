@@ -25,6 +25,7 @@ Features:
         'security/security.xml',
         'security/ir.model.access.csv',
     ],
+    'images': ['static/description/banner.png'],
     'demo': [],
     'installable': True,
     'application': True,
