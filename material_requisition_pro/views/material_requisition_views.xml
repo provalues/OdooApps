@@ -1,0 +1,62 @@
+<odoo>
+    <record id="view_material_requisition_form" model="ir.ui.view">
+        <field name="name">material.requisition.form</field>
+        <field name="model">material.requisition</field>
+        <field name="arch" type="xml">
+            <form string="Material Requisition">
+			<header>
+			<button name="action_submit" type="object" string="Submit" attrs="{'invisible': [('state', '!=', 'draft')]}" class="btn-primary" groups="material_requisition_pro.group_material_requisition_requester" />
+			
+			<button name="action_department_approval" type="object" string="Department Approve"  attrs="{'invisible': [('state', '!=', 'submit')]}"  class="btn-primary" groups="material_requisition_pro.group_department_manager" />
+			<button name="action_procurement_approval" type="object" string="Procurement Approve" attrs="{'invisible': [('state', '!=', 'department_approval')]}" class="btn-primary" groups="material_requisition_pro.group_procurement_manager"  />
+			<button name="action_reject" type="object" string="Reject"    attrs="{'invisible': [('state', 'in', ('draft','procurement_approval','rejected'))]}"  class="btn-primary" groups="material_requisition_pro.group_procurement_manager,material_requisition_pro.group_department_manager"  />
+						
+			<field name="state" widget="statusbar" statusbar_visible="draft,submit,department_approval,procurement_approval,rejected"/>
+            </header>
+                <sheet>
+                    <group>
+                        <field name="employee_id"/>
+                        <field name="department_id"/>
+                        <field name="request_date"/>
+                        <field name="priority"/>
+						
+                        <field name="reason"/>
+                    </group>
+                    <notebook>
+                        <page string="Requisition Lines">
+                            <field name="line_ids">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="quantity"/>
+                                    <field name="notes"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_material_requisition_tree" model="ir.ui.view">
+        <field name="name">material.requisition.tree</field>
+        <field name="model">material.requisition</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="employee_id"/>
+                <field name="department_id"/>
+                <field name="request_date"/>
+                <field name="priority"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_material_requisition" model="ir.actions.act_window">
+        <field name="name">Material Requisition</field>
+        <field name="res_model">material.requisition</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_material_requisition_root" name="Material Requisition" sequence="1"/>
+    <menuitem id="menu_material_requisition" name="Requisitions" parent="menu_material_requisition_root" action="action_material_requisition"/>
+</odoo>

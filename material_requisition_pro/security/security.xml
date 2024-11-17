@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+	<!-- Material Requisition Module Category -->
+        <record id="module_category_material_requisition" model="ir.module.category">
+            <field name="name">Material Requisition</field>
+            <field name="sequence">10</field>
+        </record>
+        <!-- Department Manager Group -->
+        <record id="group_department_manager" model="res.groups">
+            <field name="name">Department Manager</field>
+            <field name="category_id" ref="module_category_material_requisition"/>
+        </record>
+
+        <!-- Procurement Manager Group -->
+        <record id="group_procurement_manager" model="res.groups">
+            <field name="name">Procurement Manager</field>
+            <field name="category_id" ref="module_category_material_requisition"/>
+        </record>
+
+        <!-- Requester Group -->
+        <record id="group_material_requisition_requester" model="res.groups">
+            <field name="name">Material Requisition Requester</field>
+            <field name="category_id" ref="module_category_material_requisition"/>
+        </record>
+    </data>
+</odoo>
